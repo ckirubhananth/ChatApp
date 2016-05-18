@@ -1,0 +1,108 @@
+<%
+    var unique = {};
+    var distinct = [];
+
+    for( var i in chatMsg ){
+        if( typeof(unique[chatMsg[i].sender]) == "undefined"){
+            distinct.push(chatMsg[i].sender);
+        }
+        unique[chatMsg[i].sender] = i;
+    }
+
+
+%>
+
+
+<div class="container" ng-controller='adminController' id='userList'>
+    <div class="row">
+        <div class="col-xs-3 div1">
+
+            <ul class="nav nav-pills nav-stacked">
+
+            <%
+                for( var i in unique ){
+            %>
+
+                <li class="active" id='<%=i%>li'>
+                    <a href='javascript:;' ng-click="getUserMsg('<%=i%>')">
+                        <i class="fa fa-user fa-fw"></i><%=i%>
+                        <sup id='<%=i%>_list' style='display:none'>
+                            <i class="fa fa-star" style="color:#F7CA18;"></i>
+                        </sup>
+                    </a>
+                </li>
+
+
+            <%
+                }
+            %>
+
+            </ul>
+        </div>
+
+
+
+        <div class="col-xs-9 well div2" id='adminMsgArea' style='display:none'>
+
+            <ul class="chat" id='adminCurrentView'>
+
+                <li class="left clearfix" ng-repeat="(key, value) in userMessages">
+
+
+                    <div class="clearfix" ng-if="value.receiver == '<%=pageTo%>'">
+
+                    <span class="chat-img pull-left">
+                        <img src="/images/user.png" style="max-width:40px;" alt="User Avatar" class="img-circle img-responsive" />
+                    </span>
+
+                        <div class="header">
+
+                            <strong class="primary-font">{{ value.sender }}</strong> <br/>
+                            <small class="pull-left text-muted">
+                                <span class="glyphicon glyphicon-time"></span>
+                                {{ value.receivedOn | date : 'dd-MM-yyyy HH:mm:ss' }}
+                               
+                            </small><br/>
+                            <br/>
+                            
+                        </div>
+                        <p>
+                            {{ value.message }}
+                        </p>
+                    </div>
+
+
+                    <div class="clearfix pull-right" ng-if="value.receiver != '<%=pageTo%>'">
+                    
+                    <span class="chat-img pull-left">
+                        <img src="/images/admin.png" style="max-width:40px;" alt="User Avatar" class="img-circle img-responsive" />
+                    </span>
+
+                        <div class="header">
+
+                            <strong class="pull-right primary-font">{{ value.sender }}</strong><br/>
+                            <small class=" text-muted">
+                                <span class="glyphicon glyphicon-time"></span>
+                                {{ value.receivedOn | date : 'dd-MM-yyyy HH:mm:ss' }}
+
+                            </small><br/>
+                            <br/>
+                        </div>
+                        <p>
+                            {{ value.message }}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+
+                    
+            <div class="input-group" id='admitTextArea'>
+                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="admin.typingText"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm" id="btn-chat" ng-click="adminSubmit(admin)">
+                        Send</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<%
+
+	var userWindow = user;
+
+%>
+
+<div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                    <ul class="chat"  id='userMsgArea'>
+
+                    <%
+                       // console.log("EJS : ", data);
+
+						for(var i=0; i< data.length; i++){
+
+                            var dataUnix = Date.parse(data[i].receivedOn);
+
+                            var timestamp = 1301090400,
+                                date = new Date(dataUnix),
+                                humanDate = date.getDate()+'-'+Number(date.getMonth()+1)+'-'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+
+
+							var sender = data[i].sender.toString();
+
+							if(sender != userWindow) {
+					%>
+
+
+                        <li class="left clearfix">
+
+                        	<span class="chat-img pull-left">
+                            	<img src="/images/user.png" style="max-width:40px;" alt="User Avatar" class="img-circle img-responsive" />
+                        	</span>
+
+                            <div class="clearfix pull-left">
+                                <div class="header">
+                                    <strong class="primary-font"><%=data[i].sender%></strong> 
+                                    <small class="pull-right text-muted">
+                                    	<span class="glyphicon glyphicon-time"></span>
+                                    	<%=humanDate%>
+                                    </small>
+                                </div>
+                                <p>
+                                    <%=data[i].message%>
+                                </p>
+                            </div>
+
+                        </li>
+
+
+                        <% }else{  %>
+
+                        <li class="right clearfix">
+                            <span class="chat-img pull-right">
+                                <img src="/images/user.png" style="max-width:40px;" alt="User Avatar" class="img-circle img-responsive" />
+                            </span>
+
+                            <div class="clearfix pull-right">
+                                <div class="header">
+                                    <small class=" text-muted">
+                                    	<span class="glyphicon glyphicon-time"></span><%=humanDate%>
+                                    </small>
+                                    <strong class="pull-right primary-font"><%=userWindow%></strong>
+                                </div>
+                                <p>
+                                    <%=data[i].message%>
+                                </p>
+                            </div>
+
+                        </li>
+
+					<% 	} 
+
+					} %>
+
+
+                    </ul>
+
+                    
+                        <div class="input-group"  ng-controller='groupUserController'>
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="user.typingText" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-sm" id="btn-chat" ng-click="grpUserSubmit(user)">
+                                    Send</button>
+                            </span>
+                        </div>
+                    
+
+                </div>
+        </div>
+    </div>
