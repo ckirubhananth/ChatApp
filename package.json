@@ -1,8 +1,8 @@
 {
-  "name": "chat",
+  "name": "Chat Application",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "1.0.0",
+  "description": "Chat application through AngularJS, node.js socket",
   "keywords": [],
   "dependencies": {
     "sails": "~0.10.5",
@@ -30,8 +30,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sakthivelselvam/chat.git"
+    "url": "https://github.com/ckirubhananth/ChatApp"
   },
-  "author": "sakthivelselvam",
+  "author": "Kirubhananth Chellam",
   "license": ""
 }
